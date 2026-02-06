@@ -1,50 +1,49 @@
-const player = document.querySelector('.player');
-const video = player.querySelector('.viewer');
-const toggle = player.querySelector('.toggle');
-const volume = player.querySelector('.volume');
-const playbackSpeed = player.querySelector('.playbackSpeed');
-const skipButtons = player.querySelectorAll('[data-skip]');
-const progress = player.querySelector('.progress');
-const progressFilled = player.querySelector('.progress__filled');
+const video = document.querySelector('.player__video');
+const toggle = document.querySelector('.toggle');
+const volume = document.querySelector('.volume');
+const playbackSpeed = document.querySelector('.playbackSpeed');
+const progressFilled = document.querySelector('.progress__filled');
+const progress = document.querySelector('.progress');
+const skipButtons = document.querySelectorAll('[data-skip]');
 
 // Play / Pause
 function togglePlay() {
   video.paused ? video.play() : video.pause();
 }
 
-// Update play button
+// Update button icon
 function updateButton() {
   toggle.textContent = video.paused ? '►' : '❚ ❚';
 }
 
-// Volume control
+// Volume
 function handleVolume() {
   video.volume = this.value;
 }
 
-// Playback speed control
-function handlePlaybackSpeed() {
+// Speed
+function handleSpeed() {
   video.playbackRate = this.value;
 }
 
-// Skip functionality
+// Skip
 function skip() {
-  video.currentTime += parseFloat(this.dataset.skip);
+  video.currentTime += Number(this.dataset.skip);
 }
 
-// Progress bar update
+// Progress bar
 function handleProgress() {
   const percent = (video.currentTime / video.duration) * 100;
   progressFilled.style.width = `${percent}%`;
 }
 
-// Scrubbing
+// Scrub
 function scrub(e) {
   const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
   video.currentTime = scrubTime;
 }
 
-// Event listeners
+// Events
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
@@ -52,11 +51,7 @@ video.addEventListener('timeupdate', handleProgress);
 
 toggle.addEventListener('click', togglePlay);
 volume.addEventListener('input', handleVolume);
-playbackSpeed.addEventListener('input', handlePlaybackSpeed);
+playbackSpeed.addEventListener('input', handleSpeed);
 skipButtons.forEach(btn => btn.addEventListener('click', skip));
 
-let isMouseDown = false;
 progress.addEventListener('click', scrub);
-progress.addEventListener('mousedown', () => isMouseDown = true);
-progress.addEventListener('mouseup', () => isMouseDown = false);
-progress.addEventListener('mousemove', e => isMouseDown && scrub(e));

@@ -10,42 +10,32 @@ body {
 
 .player {
   max-width: 750px;
-  border: 3px solid #333;
   background: black;
-  position: relative;
 }
 
 .viewer {
   width: 100%;
-  display: block;
 }
 
 .player__controls {
   display: flex;
   align-items: center;
+  gap: 6px;
   padding: 8px;
   background: rgba(0, 0, 0, 0.7);
-  gap: 6px;
 }
 
 .player__button {
+  color: white;
   background: none;
   border: none;
-  color: white;
-  font-size: 16px;
   cursor: pointer;
-}
-
-.player__slider {
-  width: 100px;
 }
 
 .progress {
   flex: 1;
   height: 6px;
   background: #555;
-  cursor: pointer;
-  position: relative;
 }
 
 .progress__filled {
